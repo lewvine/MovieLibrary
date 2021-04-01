@@ -21,7 +21,9 @@ namespace WebAPISample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddSwaggerGen(c =>
+               c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "WebAPISample", Version = "v1" }));
+     
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -41,6 +43,8 @@ namespace WebAPISample
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPISample"));
             }
 
             app.UseHttpsRedirection();
