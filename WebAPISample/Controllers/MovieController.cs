@@ -22,41 +22,77 @@ namespace WebAPISample.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            // Retrieve all movies from db logic
-            return Ok(new string[] { "movie1 string", "movie2 string" });
+            try
+            {
+                // Retrieve all movies from db logic
+                return Ok(new string[] { "movie1 string", "movie2 string" });
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+            
         }
 
         // GET api/movie/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            // Retrieve movie by id from db logic
-            // return Ok(movie);
-            return Ok();
+            try
+            {
+                // Retrieve movie by id from db logic
+                // return Ok(movie);
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
 
         // POST api/movie
         [HttpPost]
         public IActionResult Post([FromBody]Movie value)
         {
-            // Create movie in db logic
-            return Ok();
+            try
+            {
+                // Create movie in db logic
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
 
         // PUT api/movie
         [HttpPut]
         public IActionResult Put([FromBody] Movie movie)
         {
-            // Update movie in db logic
-            return Ok();
+            try
+            {
+                // Update movie in db logic
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
 
         // DELETE api/movie/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            // Delete movie from db logic
-            return Ok();
+            try
+            {
+                // Delete movie from db logic
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
     }
 }
