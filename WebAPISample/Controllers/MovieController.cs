@@ -24,8 +24,9 @@ namespace WebAPISample.Controllers
         {
             try
             {
+                var movies = _context.Movies.Select(m => m);
                 // Retrieve all movies from db logic
-                return Ok(new string[] { "movie1 string", "movie2 string" });
+                return Ok(movies);
             }
             catch
             {
@@ -41,8 +42,12 @@ namespace WebAPISample.Controllers
             try
             {
                 // Retrieve movie by id from db logic
-                // return Ok(movie);
-                return Ok();
+                var movie = _context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                return Ok(movie);
             }
             catch
             {
@@ -52,12 +57,14 @@ namespace WebAPISample.Controllers
 
         // POST api/movie
         [HttpPost]
-        public IActionResult Post([FromBody]Movie value)
+        public IActionResult Post([FromBody] Movie value)
         {
             try
             {
                 // Create movie in db logic
-                return Ok();
+                _context.Add(value);
+                _context.SaveChanges();
+                return Ok(value);
             }
             catch
             {
@@ -66,13 +73,32 @@ namespace WebAPISample.Controllers
         }
 
         // PUT api/movie
-        [HttpPut]
-        public IActionResult Put([FromBody] Movie movie)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Movie movie)
         {
             try
             {
                 // Update movie in db logic
-                return Ok();
+                Movie m = _context.Movies.Where(m => m.MovieId == id).FirstOrDefault();
+                if (m == null)
+                {
+                    return NotFound();
+                }
+                if (movie.Title != null)
+                {
+                    m.Title = movie.Title;
+                }
+                if (movie.Director != null)
+                {
+                    m.Director = movie.Director;
+                }
+                if (movie.Genre != null)
+                {
+                    m.Genre = movie.Genre;
+                }
+                _context.Update(m);
+                _context.SaveChanges();
+                return Ok(m);
             }
             catch
             {
@@ -87,7 +113,14 @@ namespace WebAPISample.Controllers
             try
             {
                 // Delete movie from db logic
-                return Ok();
+                Movie m = _context.Movies.Where(m => m.MovieId == id).FirstOrDefault();
+                if (m == null)
+                {
+                    return NotFound();
+                }
+                _context.Remove(m);
+                _context.SaveChanges();
+                return Ok(m);
             }
             catch
             {
