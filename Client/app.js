@@ -12,8 +12,10 @@
             contentType: 'application/json',
             data: JSON.stringify(dict),
             success: function( data, textStatus, jQxhr ){
-                for(var i=0;i < data.length; i++){
-                    $('#response pre').append( $('<div>' + data[i].title + '</div>') );
+                $('#response pre').empty();
+                $('.movie-item').empty();
+                for(let i=0;i < data.length; i++){
+                    $('#response pre').append( $('<div id = movieId' + data[i].movieId + '>' + data[i].title + '</div>') );            
                     displayMovie(data[i]);
                 };
             },
@@ -31,7 +33,7 @@
 function displayMovie(movieObject) {
     var tbody = $('#movies-table tbody');
     if (tbody.length >= 0) {
-        tbody.append(`<tr><td>${movieObject.movieId}</td><td>${movieObject.title}</td><td>${movieObject.director}</td><td>${movieObject.genre}</td></tr>`);
+        tbody.append(`<tr class="movie-item"><td>${movieObject.movieId}</td><td>${movieObject.title}</td><td>${movieObject.director}</td><td>${movieObject.genre}</td></tr>`);
     } else {
         $('#movies-table').append('<tr><td>value</tr></td>');
     }
