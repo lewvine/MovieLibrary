@@ -2,7 +2,7 @@
 
 (function($){
     $('#my-form').submit( processPutMovie );
-    homePage();
+    var movies = homePage();
 
 })(jQuery);
 
@@ -27,9 +27,10 @@ function homePage() {
             $('#main-area').append($("<div class='row'>Movie</div>"));
             for(let i=0;i < data.length; i++){
                 $('#main-area').append($("<div class='row'>"));
-                $('#main-area').append( $(`<div class="closed" onclick=displayMovie(${data[i].movieId}) id = movieId${data[i].movieId} >${data[i].title}</div>`));
-                $('#main-area').append($("</div>"));           
+                $('#main-area').append( $(`<div data-title="${data[i].title}" data-genre="${data[i].genre}" data-director="${data[i].director}" class="closed" onclick=displayMovie(${data[i].movieId}) id = movieId${data[i].movieId} >${data[i].title}</div>`));
+                $('#main-area').append($("</div>"));
             };
+            return data;           
         },
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
@@ -62,29 +63,17 @@ function processPutMovie( e ){
 }
 
 function displayMovie(id){  
-    $.ajax({
-        url: `https://localhost:44325/api/movie/${id}`,
-        dataType: 'json',
-        type: 'Get',
-        contentType: 'application/json',
-        success: function( data, textStatus, jQxhr ){
-            if( $(`#movieId${id}`).hasClass("open"))
-            {
-                $(`#movieId${id}`).removeClass("open")
-                $(`#movieId${id}`).addClass("closed")
-                $(`#movieId${id}`).html(`${data.title}`);
-            }else{
-                $(`#movieId${id}`).removeClass("closed");
-                $(`#movieId${id}`).addClass("open");
-                $(`#movieId${id}`).empty();
-                $(`#movieId${id}`).html(`Movie Id: ${data.movieId}, Title:${data.title}, Genre:${data.genre}</div>`);         
-            }
-        },
-        error: function( jqXhr, textStatus, errorThrown ){
-            console.log( errorThrown );
-        }
-    });
-    
+    var element = document.Find(`#movieId${id}`);
+    var title = element.dataset.title;
+    var genre = element.dataset.genre;
+    var director = element.dataset.director;
+
+    if( element.hasClass("open"))
+    {
+        element.removeClass("open").addClass("closed").html(`Title: ${title}, Genre: ${genre}, Director: ${director}`);
+    }else{
+        element.removeClass("closed").addClass("open").html(`Title: ${title}`);     
+    };
 }
 
 function addAMovie() {
