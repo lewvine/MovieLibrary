@@ -14,6 +14,7 @@ function displayMovie(movieObject) {
 }
 
 function homePage() {
+    $("#my-form").hide();
     $.ajax({
         url: 'https://localhost:44325/api/movie/',
         dataType: 'json',
@@ -58,3 +59,7 @@ function processPutMovie( e ){
     e.preventDefault();
 }
 
+function addAMovie() {
+    $('#main-area').empty();
+    $("#my-form").show();
+}
