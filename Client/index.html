@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div class="btn btn-primary">Home</div>
+<button class="btn btn-primary" onClick="homePage()">Home</button>
 <div class="btn btn-primary">Add a Movie</div>
 <div class="btn btn-primary">Search</div>
 
@@ -17,22 +17,12 @@
 </div>
 
 <form id="my-form">
-    <input type="number" name = "id", placeholder= "Movie Id" />
     <input type="text" name="title" placeholder="Title" />
     <input type="text" name="director" placeholder="Director" />
+    <input type="text" name="genre" placeholder="Genre" />
     <button type="submit">Submit</button>
 </form>
-<table id="movies-table">
-    <tbody>
-        <tr>
-            <td>Movie Id</td>
-            <td>Movie Title</td>
-            <td>Movie Director</td>
-            <td>Movie Genre</td>
-            
-        </tr>
-    </tbody>
-</table>
+<div class="container" id="main-area"></div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="./app.js"></script>
