@@ -26,9 +26,7 @@ function homePage() {
             $('#main-area').empty();
             $('#main-area').append($("<div class='row'>Movie</div>"));
             for(let i=0;i < data.length; i++){
-                $('#main-area').append($("<div class='row'>"));
-                $('#main-area').append( $(`<div data-title="${data[i].title}" data-genre="${data[i].genre}" data-director="${data[i].director}" class="closed" onclick=displayMovie(${data[i].movieId}) id = movieId${data[i].movieId} >${data[i].title}<button onclick='deleteMovie(${data[i].movieId})' class="btn btn-warning">Delete</button></div>`));
-                $('#main-area').append($("</div>"));
+                $('#main-area').append(generateRow(data[i]));
             };
             return data;           
         },
@@ -97,4 +95,17 @@ function deleteMovie(id){
             console.log( errorThrown );
         }
     });
+}
+
+function generateRow(movie) {
+    let rowValues = [];
+    rowValues.push("<div class='row'>");
+    rowValues.push("<div");
+    rowValues.push(` data-title="${movie.title}" data-genre="${movie.genre}" data-director="${movie.director}"`);
+    rowValues.push(` class="closed" onclick=displayMovie(${movie.movieId}) id = movieId${movie.movieId}>`);
+    rowValues.push(`${movie.title}`);
+    rowValues.push(`<button onclick='deleteMovie(${movie.movieId})' class="btn btn-danger">Delete</button>`);
+    rowValues.push("</div>");
+    rowValues.push("</div>")
+    return rowValues.join("");
 }
