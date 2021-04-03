@@ -107,9 +107,12 @@ function generateMovieRow(movie) {
     rowValues.push(` data-title="${movie.title}" data-genre="${movie.genre}" data-director="${movie.director}">`);
     rowValues.push("<div class='col-9'>");
     // Changes to inner values here
-    rowValues.push(`<div class='row align-items-center' id='movieInner${movie.movieId}'>`);
+    rowValues.push("<div class='row align-items-center'>");
+    rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responseive col-3">');
+    rowValues.push(`<div class='row col-9' id='movieInner${movie.movieId}'>`);
     rowValues.push("Place Holder");
     // Populate inner values later
+    rowValues.push("</div>")
     rowValues.push("</div>");
     rowValues.push("</div>");
     rowValues.push("</div>");
@@ -121,14 +124,20 @@ function generateMain(id) {
     
     let outer = $('#movieOuter' + id);
     let title = outer.attr("data-title");
-    rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responseive col-3">');
-    rowValues.push(`<div class="col-7 text-center">${title}</div>`);
+    rowValues.push(`<div class="col-10 text-center">${title}</div>`);
     rowValues.push(`<div class="btn btn-primary col-2" onclick="movieDetails(${id})">Details</div>`);
     $('#movieInner' + id).html(rowValues.join(""));
 }
 
+// Change to details screen with update image, edit, delete, and back buttons
 function movieDetails(id) {
-    alert(id);
+    let outer = $(`#movieOuter${id}`);
+    let rowValues = [];
+    $(`#movieInner${id}`).empty();
+    rowValues.push("<div class='row col-12'><div class='col-4'>value 1</div><div class='col-4'>value 2</div><div class='col-4'>value 3</div></div>");
+    rowValues.push("<div class='row col-12'><div class='col-3'>button 1</div><div class='col-3'>button 2</div><div class='col-3'>button 3</div><div class='col-3'>button 4</div></div>")
+    $(`#movieInner${id}`).html(rowValues.join(""));
+
 }
 
 function oldCode() {
