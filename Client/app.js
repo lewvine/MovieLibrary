@@ -6,15 +6,6 @@
 
 })(jQuery);
 
-// function displayMovie(movieObject) {
-//     var tbody = $('#movies-table tbody');
-//     if (tbody.length >= 0) {
-//         tbody.append(`<tr class="movie-item"><td>${movieObject.movieId}</td><td>${movieObject.title}</td><td>${movieObject.director}</td><td>${movieObject.genre}</td></tr>`);
-//     } else {
-//         $('#movies-table').append('<tr><td>value</tr></td>');
-//     }
-// }
-
 function homePage() {
     $("#my-form").hide();
     $.ajax({
@@ -24,7 +15,6 @@ function homePage() {
         contentType: 'application/json',
         success: function( data, textStatus, jQxhr ){
             $('#main-area').empty();
-            $('#main-area').append($("<div class='row'>Movie</div>"));
             for(let i=0;i < data.length; i++){
                 $('#main-area').append(generateMovieRow(data[i]));
                 generateMain(data[i].movieId);
@@ -85,23 +75,6 @@ function processPutMovie( e ){
 
     e.preventDefault();
 }
-
-function displayMovie(id){  
-    var element = document.querySelector(`#movieId${id}`);
-    var title = element.dataset.title;
-    var genre = element.dataset.genre;
-    var director = element.dataset.director;
-
-    if( element.className == "open")
-    {
-        element.className = "closed";
-        element.innerHTML = `Title: ${title}, Genre: ${genre}, Director: ${director}`;
-    }else{
-        element.className = "open";
-        element.innerHTML = `${title}`;     
-    };
-}
-
 function addAMovie() {
     $('#main-area').empty();
     $("#my-form").show();
@@ -202,19 +175,4 @@ function editDetails(id) {
 
 function updateImage(id) {
     alert(id);
-}
-
-function oldCode() {
-    let rowValues = [];
-    rowValues.push("<div class='row'>");
-    rowValues.push("<div class='col-9'");
-    rowValues.push()
-    rowValues.push("<div");
-    rowValues.push(` data-title="${movie.title}" data-genre="${movie.genre}" data-director="${movie.director}"`);
-    rowValues.push(` class="closed" onclick=displayMovie(${movie.movieId}) id = movieId${movie.movieId}>`);
-    rowValues.push(`${movie.title}`);
-    rowValues.push(`<button onclick='deleteMovie(${movie.movieId})' class="btn btn-danger">Delete</button>`);
-    rowValues.push("</div>");
-    rowValues.push("</div>")
-    return rowValues.join("");
 }
