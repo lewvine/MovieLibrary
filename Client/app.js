@@ -1,7 +1,7 @@
 "use strict";
 
 (function($){
-    $('#my-form').submit( processPutMovie );
+    $('#my-form').submit( processPostMovie );
     var movies = homePage();
 
 })(jQuery);
@@ -37,7 +37,7 @@ function homePage() {
     });
 }
 
-function processPutMovie( e ){
+function processPostMovie( e ){
     var dict = {
         Title : this["title"].value, //Find MovieId where title = this;
         Director: this["director"].value,
@@ -51,7 +51,7 @@ function processPutMovie( e ){
         contentType: 'application/json',
         data: JSON.stringify(dict),
         success: function( data, textStatus, jQxhr ){
-            $('#response pre').append( $('<div class="open" id = movieId' + data.movieId + '>' + data.title + '</div>') );
+            homePage();
         },
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
@@ -196,8 +196,8 @@ function editDetails(id) {
     rowValues.push("<button type='submit' class='btn btn-primary'>Confirm</button>");
     rowValues.push('</form>');
     rowValues.push("</div>");
-    $('#form' + id).submit( processPutMovie );
     $(`#movieInner${id}`).html(rowValues.join(""));
+    $('#form' + id).submit( processPutMovie );
 }
 
 function updateImage(id) {
