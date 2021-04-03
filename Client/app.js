@@ -26,7 +26,8 @@ function homePage() {
             $('#main-area').empty();
             $('#main-area').append($("<div class='row'>Movie</div>"));
             for(let i=0;i < data.length; i++){
-                $('#main-area').append(generateRow(data[i]));
+                $('#main-area').append(generateMovieRow(data[i]));
+                generateMain(data[i].movieId);
             };
             return data;           
         },
@@ -97,9 +98,44 @@ function deleteMovie(id){
     });
 }
 
-function generateRow(movie) {
+// Avoiding repetition by saving data-fields to outer most layer of this.
+// Other methods will retrieve values from this layer to set internal parts
+function generateMovieRow(movie) {
+    let rowValues = [];
+    // Outer most div holds all of the information needed to populate internal divs
+    rowValues.push(`<div class='row mt-1 mb-1' id='movieOuter${movie.movieId}'`);
+    rowValues.push(` data-title="${movie.title}" data-genre="${movie.genre}" data-director="${movie.director}">`);
+    rowValues.push("<div class='col-9'>");
+    // Changes to inner values here
+    rowValues.push(`<div class='row align-items-center' id='movieInner${movie.movieId}'>`);
+    rowValues.push("Place Holder");
+    // Populate inner values later
+    rowValues.push("</div>");
+    rowValues.push("</div>");
+    rowValues.push("</div>");
+    return rowValues.join("");
+}
+
+function generateMain(id) {
+    let rowValues = [];
+    
+    let outer = $('#movieOuter' + id);
+    let title = outer.attr("data-title");
+    rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responseive col-3">');
+    rowValues.push(`<div class="col-7 text-center">${title}</div>`);
+    rowValues.push(`<div class="btn btn-primary col-2" onclick="movieDetails(${id})">Details</div>`);
+    $('#movieInner' + id).html(rowValues.join(""));
+}
+
+function movieDetails(id) {
+    alert(id);
+}
+
+function oldCode() {
     let rowValues = [];
     rowValues.push("<div class='row'>");
+    rowValues.push("<div class='col-9'");
+    rowValues.push()
     rowValues.push("<div");
     rowValues.push(` data-title="${movie.title}" data-genre="${movie.genre}" data-director="${movie.director}"`);
     rowValues.push(` class="closed" onclick=displayMovie(${movie.movieId}) id = movieId${movie.movieId}>`);
