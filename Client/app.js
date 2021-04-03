@@ -134,8 +134,15 @@ function movieDetails(id) {
     let outer = $(`#movieOuter${id}`);
     let rowValues = [];
     $(`#movieInner${id}`).empty();
-    rowValues.push("<div class='row col-12'><div class='col-4'>value 1</div><div class='col-4'>value 2</div><div class='col-4'>value 3</div></div>");
-    rowValues.push("<div class='row col-12'><div class='col-3'>button 1</div><div class='col-3'>button 2</div><div class='col-3'>button 3</div><div class='col-3'>button 4</div></div>")
+    rowValues.push("<div class='row col-12'><div class='col-5'>Title</div><div class='col-4'>Director</div><div class='col-3'>Genre</div></div>")
+    rowValues.push("<div class='row col-12'>");
+    rowValues.push(`<div class='col-5'>${outer.attr("data-title")}</div>`);
+    rowValues.push(`<div class='col-4'>${outer.attr("data-director")}</div>`);
+    rowValues.push(`<div class='col-3'>${outer.attr("data-genre")}</div>`);
+    rowValues.push("</div>");
+    rowValues.push("<div class='row col-12'><br></div>")
+    rowValues.push("<div class='row col-12'><br></div>")
+    rowValues.push("<div class='row col-12 align-bottom'><div class='col-3'>button 1</div><div class='col-3'>button 2</div><div class='col-3'>button 3</div><div class='col-3'>button 4</div></div>")
     $(`#movieInner${id}`).html(rowValues.join(""));
 
 }
