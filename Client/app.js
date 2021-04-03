@@ -1,13 +1,13 @@
 "use strict";
 
 (function($){
-    $('#my-form').submit( processPostMovie );
+    $('#new-movie-form').submit( processPostMovie );
     var movies = homePage();
 
 })(jQuery);
 
 function homePage() {
-    $("#my-form").hide();
+    hideAddmovie();
     $.ajax({
         url: 'https://localhost:44325/api/movie/',
         dataType: 'json',
@@ -49,6 +49,7 @@ function processPostMovie( e ){
     });
 
     e.preventDefault();
+    $("#new-movie-form")[0].reset();
 }
 
 function processPutMovie( e ){
@@ -76,8 +77,10 @@ function processPutMovie( e ){
     e.preventDefault();
 }
 function addAMovie() {
-    $('#main-area').empty();
-    $("#my-form").show();
+    $("#new-movie-form").show();
+}
+function hideAddmovie() {
+    $("#new-movie-form").hide();
 }
 
 function deleteMovie(id){
