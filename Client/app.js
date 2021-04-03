@@ -61,6 +61,31 @@ function processPutMovie( e ){
     e.preventDefault();
 }
 
+function processPutMovie( e ){
+    var dict = {
+        Title : this["title"].value, //Find MovieId where title = this;
+        Director: this["director"].value,
+        Genre: this["genre"].value
+    };
+    let id = this['id'].value;
+
+    $.ajax({
+        url: 'https://localhost:44325/api/movie/' + id,
+        dataType: 'json',
+        type: 'Put',
+        contentType: 'application/json',
+        data: JSON.stringify(dict),
+        success: function( data, textStatus, jQxhr ){
+            homePage();
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+        }
+    });
+
+    e.preventDefault();
+}
+
 function displayMovie(id){  
     var element = document.querySelector(`#movieId${id}`);
     var title = element.dataset.title;
@@ -152,7 +177,27 @@ function movieDetails(id) {
 
 }
 function editDetails(id) {
-    alert(id);
+    let outer = $(`#movieOuter${id}`);
+    $(`#movieInner${id}`).empty();
+    let rowValues = [];
+    rowValues.push("<div class='row col-12'>");
+    rowValues.push(`<form class='col-12' id="form${id}">`);
+    rowValues.push(`<input type="hidden" name="id" value=${id} />`);
+    rowValues.push("<label class='col-3'>Title:</label>");
+    rowValues.push(`<input class ='col-6' type="text" name="title" value="${outer.attr("data-title")}" />`);
+    rowValues.push("<br>");
+    rowValues.push("<label class='col-3'>Director:</label>");
+    rowValues.push(`<input class ='col-6' type="text" name="director" value="${outer.attr("data-director")}" />`);
+    rowValues.push("<br>");
+    rowValues.push("<label class='col-3'>Genre:</label>");
+    rowValues.push(`<input class ='col-6' type="text" name="genre" value="${outer.attr("data-genre")}" />`);
+    rowValues.push("<br>");
+    rowValues.push(`<div class='btn btn-danger' onclick="movieDetails(${id})">Cancel</div>`);
+    rowValues.push("<button type='submit' class='btn btn-primary'>Confirm</button>");
+    rowValues.push('</form>');
+    rowValues.push("</div>");
+    $('#form' + id).submit( processPutMovie );
+    $(`#movieInner${id}`).html(rowValues.join(""));
 }
 
 function updateImage(id) {
