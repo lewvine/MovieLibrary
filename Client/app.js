@@ -36,88 +36,29 @@ function displayMovies(movies){
 function updateMovies(e){
     var searchProperty = document.getElementById("searchField").value;
 
-    if(searchProperty == "title"){
-        var title = e.target.value;
-        if(title != ""){
-            $('#main-area .movie').map(
-                function(){
-                    for(let i = 0; i< title.length; i++){
-                        if(this.dataset.title[i] == title[i]){
-                            this.style.display = "block";
-                            continue;
-                        }else{
-                            this.style.display = "none";
-                            break;
-                        }
-                    }
-                }
-            );
-        }else{
-            $('#main-area .movie').map(
-                function(){
-                    this.style.display = "block";
-                }
-            );
-        }
-    }
-    if(searchProperty == "genre")
-    {
-        var genre = e.target.value;
-        //Iterate through each movie
-        if(genre != ""){
-            $('#main-area .movie').map(
-                function(){
-                    for(let i = 0; i< genre.length; i++){
-                        if(this.dataset.genre[i] == genre[i]){
-                            this.style.display = "block";
-                            continue;
-                        }else{
-                            this.style.display = "none";
-                            break;
-                        }
-                    }
-                }
-            );
-        }else{
-            $('#main-area .movie').map(
-                function(){
-                    this.style.display = "block";
-                }
-            );
-        }
-    }
-    if(searchProperty == "director"){
-        {
-            var director = e.target.value;
-            //Iterate through each movie
-            if(director != ""){
-                $('#main-area .movie').map(
-                    function(){
-                        for(let i = 0; i< director.length; i++){
-                            if(this.dataset.director[i] == director[i]){
-                                this.style.display = "block";
-                                continue;
-                            }else{
-                                this.style.display = "none";
-                                break;
-                            }
-                        }
-                    }
-                );
-            }else{
-                $('#main-area .movie').map(
-                    function(){
+    var searchField = e.target.value;
+    if(searchField != ""){
+        $('#main-area .movie').map(
+            function(){
+                for(let i = 0; i< searchField.length; i++){
+                    if(this.dataset[searchProperty][i] == searchField[i]){
                         this.style.display = "block";
+                        continue;
+                    }else{
+                        this.style.display = "none";
+                        break;
                     }
-                );
+                }
             }
-        }
+        );
+    }else{
+        $('#main-area .movie').map(
+            function(){
+                this.style.display = "block";
+            }
+        );
     }
-
-}
-
-
-
+};
 
 function homePage() {
     hideAddMovie();
