@@ -1,7 +1,7 @@
 "use strict";
 
 (function($){
-    $('#new-movie-form').submit( processPostMovie );
+    $('#new-movie-form btn-info').submit( processPostMovie );
     var movies = homePage();
 
 })(jQuery);
