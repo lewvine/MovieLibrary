@@ -26,6 +26,27 @@ function getMovies() {
     });
 }
 
+function getMoviesForSearch() {
+    $.ajax({
+        url: 'https://localhost:44325/api/movie/',
+        dataType: 'json',
+        type: 'Get',
+        contentType: 'application/json',
+        success: function( movies, textStatus, jQxhr ){
+            displayMoviesForSearch(movies);
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+        }
+    });
+}
+
+function displayMoviesForSearch(movies) {
+    for(let i=0;i < movies.length; i++){
+        $('#main-area').append(generateMovieRow(movies[i]));
+        movieSearchDetails(movies[i].movieId);  
+    };
+}
 
 function displayMovies(movies){
     for(let i=0;i < movies.length; i++){
@@ -126,7 +147,9 @@ function addAMovie() {
     $("#search-movie-form")[0].reset();
 }
 function showSearch() {
+    $("#main-area").empty();
     $("#search-movie-form").show();
+    getMoviesForSearch();
     $("#new-movie-form").hide();
     $("#new-movie-form")[0].reset();
 }
@@ -206,6 +229,27 @@ function movieDetails(id) {
     rowValues.push(`<div class='btn btn-warning col-3' onclick="editDetails(${id})">Edit</div>`);
     rowValues.push(`<div class='btn btn-info col-3' onclick="updateImage(${id})">Update Image</div>`);
     rowValues.push(`<div class='btn btn-danger col-3' onclick="deleteMovie(${id})">Delete Entry</div>`)
+    rowValues.push("</div>");
+    $(`#movieInner${id}`).html(rowValues.join(""));
+
+}
+
+function movieSearchDetails(id) {
+    let outer = $(`#movieOuter${id}`);
+    let rowValues = [];
+    $(`#movieInner${id}`).empty();
+    rowValues.push("<div class='row col-12'><div class='col-5'>Title:</div><div class='col-4'>Director:</div><div class='col-3'>Genre:</div></div>")
+    rowValues.push("<div class='row col-12'>");
+    rowValues.push(`<div class='col-5'>${outer.attr("data-title")}</div>`);
+    rowValues.push(`<div class='col-4'>${outer.attr("data-director")}</div>`);
+    rowValues.push(`<div class='col-3'>${outer.attr("data-genre")}</div>`);
+    rowValues.push("</div>");
+    rowValues.push("<div class='row col-12'><br></div>")
+    rowValues.push("<div class='row col-12'><br></div>")
+    rowValues.push("<div class='row col-12 justify-content-md-center'>");
+    rowValues.push(`<div class='btn btn-warning col-4' onclick="editDetails(${id})">Edit</div>`);
+    rowValues.push(`<div class='btn btn-info col-4' onclick="updateImage(${id})">Update Image</div>`);
+    rowValues.push(`<div class='btn btn-danger col-4' onclick="deleteMovie(${id})">Delete Entry</div>`)
     rowValues.push("</div>");
     $(`#movieInner${id}`).html(rowValues.join(""));
 
