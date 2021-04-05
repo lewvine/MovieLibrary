@@ -25,6 +25,7 @@ function getMovies() {
     });
 }
 
+
 function displayMovies(movies){
     for(let i=0;i < movies.length; i++){
         $('#main-area').append(generateMovieRow(movies[i]));
@@ -33,29 +34,86 @@ function displayMovies(movies){
 }
 
 function updateMovies(e){
-    var title = e.target.value;
-    //Iterate through each movie
-    if(title != ""){
-        $('#main-area .movie').map(
-            function(){
-                for(let i = 0; i< title.length; i++){
-                    if(this.dataset.title[i] == title[i]){
-                        this.style.display = "block";
-                        continue;
-                    }else{
-                        this.style.display = "none";
-                        break;
+    var searchProperty = document.getElementById("searchField").value;
+
+    if(searchProperty == "title"){
+        var title = e.target.value;
+        if(title != ""){
+            $('#main-area .movie').map(
+                function(){
+                    for(let i = 0; i< title.length; i++){
+                        if(this.dataset.title[i] == title[i]){
+                            this.style.display = "block";
+                            continue;
+                        }else{
+                            this.style.display = "none";
+                            break;
+                        }
                     }
                 }
-            }
-        );
-    }else{
-        $('#main-area .movie').map(
-            function(){
-                this.style.display = "block";
-            }
-        );
+            );
+        }else{
+            $('#main-area .movie').map(
+                function(){
+                    this.style.display = "block";
+                }
+            );
+        }
     }
+    if(searchProperty == "genre")
+    {
+        var genre = e.target.value;
+        //Iterate through each movie
+        if(genre != ""){
+            $('#main-area .movie').map(
+                function(){
+                    for(let i = 0; i< genre.length; i++){
+                        if(this.dataset.genre[i] == genre[i]){
+                            this.style.display = "block";
+                            continue;
+                        }else{
+                            this.style.display = "none";
+                            break;
+                        }
+                    }
+                }
+            );
+        }else{
+            $('#main-area .movie').map(
+                function(){
+                    this.style.display = "block";
+                }
+            );
+        }
+    }
+    if(searchProperty == "director"){
+        {
+            var director = e.target.value;
+            //Iterate through each movie
+            if(director != ""){
+                $('#main-area .movie').map(
+                    function(){
+                        for(let i = 0; i< director.length; i++){
+                            if(this.dataset.director[i] == director[i]){
+                                this.style.display = "block";
+                                continue;
+                            }else{
+                                this.style.display = "none";
+                                break;
+                            }
+                        }
+                    }
+                );
+            }else{
+                $('#main-area .movie').map(
+                    function(){
+                        this.style.display = "block";
+                    }
+                );
+            }
+        }
+    }
+
 }
 
 
