@@ -3,8 +3,9 @@
 (function($){
     $('#new-movie-form .btn-info').submit( processPostMovie );
     hideAddMovie();
+    hideSearchMovie();
     getMovies();
-    var input = document.getElementById("movieTitle");
+    let input = document.getElementById("movieTitle");
     input.addEventListener('input', updateMovies);
 
 
@@ -33,14 +34,21 @@ function displayMovies(movies){
     };
 }
 
+function resetSearch() {
+    $('#main-area .movie').map(
+        function(){
+            this.style.display = "none";
+        }
+    );
+}
 function updateMovies(e){
-    var searchProperty = document.getElementById("searchField").value;
+    let searchProperty = $("#searchField")[0].value;
 
-    var searchField = e.target.value;
+    let searchField = e.target.value.toLowerCase();
     if(searchField != ""){
         $('#main-area .movie').map(
             function(){
-                if(this.dataset[searchProperty].includes(searchField)){
+                if(this.dataset[searchProperty].toLowerCase().includes(searchField)){
                     this.style.display = "block";
                 }else{
                     this.style.display = "none";
@@ -57,9 +65,10 @@ function updateMovies(e){
 };
 
 function homePage() {
+    $("#main-area").empty();
     hideAddMovie();
     getMovies();
-    displayMovies(movies);
+    hideSearchMovie();
 }
 
 function processPostMovie( e ){
@@ -113,10 +122,23 @@ function processPutMovie( e ){
 }
 function addAMovie() {
     $("#new-movie-form").show();
+    $("#search-movie-form").hide();
+    $("#search-movie-form")[0].reset();
+}
+function showSearch() {
+    $("#search-movie-form").show();
+    $("#new-movie-form").hide();
+    $("#new-movie-form")[0].reset();
 }
 function hideAddMovie() {
     $("#new-movie-form").hide();
     $("#new-movie-form")[0].reset();
+}
+
+function hideSearchMovie() {
+    $("#search-movie-form").hide();
+    $("#search-movie-form")[0].reset();
+    //resetSearch();
 }
 
 function deleteMovie(id){
@@ -188,6 +210,7 @@ function movieDetails(id) {
     $(`#movieInner${id}`).html(rowValues.join(""));
 
 }
+
 function editDetails(id) {
     let outer = $(`#movieOuter${id}`);
     $(`#movieInner${id}`).empty();
