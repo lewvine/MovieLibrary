@@ -3,7 +3,7 @@
 (function($){
     $('#new-movie-form .btn-info').submit( processPostMovie );
     hideAddMovie();
-    var movies = getMovies();
+    getMovies();
     var input = document.getElementById("movieTitle");
     input.addEventListener('input', updateMovies);
 
@@ -40,14 +40,10 @@ function updateMovies(e){
     if(searchField != ""){
         $('#main-area .movie').map(
             function(){
-                for(let i = 0; i< searchField.length; i++){
-                    if(this.dataset[searchProperty][i] == searchField[i]){
-                        this.style.display = "block";
-                        continue;
-                    }else{
-                        this.style.display = "none";
-                        break;
-                    }
+                if(this.dataset[searchProperty].includes(searchField)){
+                    this.style.display = "block";
+                }else{
+                    this.style.display = "none";
                 }
             }
         );
