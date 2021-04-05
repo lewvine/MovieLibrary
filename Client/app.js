@@ -1,12 +1,11 @@
 "use strict";
 
 (function($){
-    $('#new-movie-form .btn-info').submit( processPostMovie );
+    $('#new-movie-form').submit( processPostMovie );
     hideAddMovie();
     hideSearchMovie();
     getMovies();
-    $("#home-btn").removeClass("btn-primary");
-    $("#home-btn").addClass("btn-secondary");
+    mainMenuButtons();
     let input = document.getElementById("movieTitle");
     input.addEventListener('input', updateMovies);
 
@@ -60,9 +59,10 @@ function displayMovies(movies){
 function resetSearch() {
     $('#main-area .movie').map(
         function(){
-            this.style.display = "none";
+            this.style.display = "block";
         }
     );
+    mainMenuButtons();
 }
 function updateMovies(e){
     let searchProperty = $("#searchField")[0].value;
@@ -92,13 +92,7 @@ function homePage() {
     hideAddMovie();
     getMovies();
     hideSearchMovie();
-    $("#home-btn").removeClass("btn-primary");
-    $("#home-btn").addClass("btn-secondary");
-    $("#add-btn").removeClass("btn-secondary");
-    $("#add-btn").addClass("btn-primary");
-    $("#search-btn").removeClass("btn-secondary");
-    $("#search-btn").addClass("btn-primary");
-
+    mainMenuButtons();
 }
 
 function processPostMovie( e ){
@@ -154,13 +148,7 @@ function addAMovie() {
     $("#new-movie-form").show();
     $("#search-movie-form").hide();
     $("#search-movie-form")[0].reset();
-
-    $("#home-btn").removeClass("btn-secondary");
-    $("#home-btn").addClass("btn-primary");
-    $("#add-btn").removeClass("btn-primary");
-    $("#add-btn").addClass("btn-secondary");
-    $("#search-btn").removeClass("btn-secondary");
-    $("#search-btn").addClass("btn-primary");
+    addMenuButtons();
 }
 function showSearch() {
     $("#main-area").empty();
@@ -168,23 +156,19 @@ function showSearch() {
     getMoviesForSearch();
     $("#new-movie-form").hide();
     $("#new-movie-form")[0].reset();
-
-    $("#home-btn").removeClass("btn-secondary");
-    $("#home-btn").addClass("btn-primary");
-    $("#add-btn").removeClass("btn-secondary");
-    $("#add-btn").addClass("btn-primary");
-    $("#search-btn").removeClass("btn-primary");
-    $("#search-btn").addClass("btn-secondary");
+    searchMenuButtons();
 }
 function hideAddMovie() {
     $("#new-movie-form").hide();
     $("#new-movie-form")[0].reset();
+    mainMenuButtons();
 }
 
 function hideSearchMovie() {
     $("#search-movie-form").hide();
     $("#search-movie-form")[0].reset();
-    //resetSearch();
+    mainMenuButtons();
+    resetSearch();
 }
 
 function deleteMovie(id){
@@ -304,4 +288,32 @@ function editDetails(id) {
 
 function updateImage(id) {
     alert(id);
+}
+
+function mainMenuButtons() {
+    $("#home-btn").removeClass("btn-primary");
+    $("#home-btn").addClass("btn-secondary");
+    $("#add-btn").removeClass("btn-secondary");
+    $("#add-btn").addClass("btn-primary");
+    $("#search-btn").removeClass("btn-secondary");
+    $("#search-btn").addClass("btn-primary");
+}
+
+function addMenuButtons() {
+    $("#home-btn").removeClass("btn-secondary");
+    $("#home-btn").addClass("btn-primary");
+    $("#add-btn").removeClass("btn-primary");
+    $("#add-btn").addClass("btn-secondary");
+    $("#search-btn").removeClass("btn-secondary");
+    $("#search-btn").addClass("btn-primary");
+
+}
+
+function searchMenuButtons() {
+    $("#home-btn").removeClass("btn-secondary");
+    $("#home-btn").addClass("btn-primary");
+    $("#add-btn").removeClass("btn-secondary");
+    $("#add-btn").addClass("btn-primary");
+    $("#search-btn").removeClass("btn-primary");
+    $("#search-btn").addClass("btn-secondary");
 }
