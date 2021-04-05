@@ -13,6 +13,7 @@
 })(jQuery);
 
 function getMovies() {
+    $("#main-area").empty();
     $.ajax({
         url: 'https://localhost:44325/api/movie/',
         dataType: 'json',
@@ -28,6 +29,7 @@ function getMovies() {
 }
 
 function getMoviesForSearch() {
+    $("#main-area").empty();
     $.ajax({
         url: 'https://localhost:44325/api/movie/',
         dataType: 'json',
@@ -88,7 +90,6 @@ function updateMovies(e){
 };
 
 function homePage() {
-    $("#main-area").empty();
     hideAddMovie();
     getMovies();
     hideSearchMovie();
@@ -148,10 +149,10 @@ function addAMovie() {
     $("#new-movie-form").show();
     $("#search-movie-form").hide();
     $("#search-movie-form")[0].reset();
+    getMovies();
     addMenuButtons();
 }
 function showSearch() {
-    $("#main-area").empty();
     $("#search-movie-form").show();
     getMoviesForSearch();
     $("#new-movie-form").hide();
