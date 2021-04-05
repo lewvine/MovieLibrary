@@ -16,11 +16,20 @@
         </div>
         <form id="new-movie-form">
             <label>Add a Movie</label>
-            <input type="text" name="title" placeholder="Title" />
-            <input type="text" name="director" placeholder="Director" />
-            <input type="text" name="genre" placeholder="Genre" />
+            <input type="text" name="title" placeholder="Title" required />
+            <input type="text" name="director" placeholder="Director" required />
+            <input type="text" name="genre" placeholder="Genre" required />
             <button type="submit" class="btn btn-info">Submit</button>
-            <button class="btn btn-danger" onclick="hideAddMovie()">Cancel</button>
+            <div class="btn btn-danger" onclick="hideAddMovie()">Cancel</div>
+        </form>
+        <form id="search-movie-form">
+            <label>Search a Movie</label>
+            <input id="movieTitle" placeholder="Search for a movie">
+            <!-- <input type="text" name="title" placeholder="Title"  />
+            <input type="text" name="director" placeholder="Director"  />
+            <input type="text" name="genre" placeholder="Genre" /> -->
+            <!-- <button type="submit" class="btn btn-info">Submit</button>
+            <div class="btn btn-danger" onclick="hideAddMovie()">Cancel</div> -->
         </form>
         <div id="main-area">
         </div>

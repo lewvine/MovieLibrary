@@ -1,30 +1,70 @@
 "use strict";
 
 (function($){
-    $('#new-movie-form btn-info').submit( processPostMovie );
-    var movies = homePage();
+    $('#new-movie-form .btn-info').submit( processPostMovie );
+    hideAddMovie();
+    var movies = getMovies();
+    var input = document.getElementById("movieTitle");
+    input.addEventListener('input', updateMovies);
+
 
 })(jQuery);
 
-function homePage() {
-    hideAddmovie();
+function getMovies() {
     $.ajax({
         url: 'https://localhost:44325/api/movie/',
         dataType: 'json',
         type: 'Get',
         contentType: 'application/json',
-        success: function( data, textStatus, jQxhr ){
-            $('#main-area').empty();
-            for(let i=0;i < data.length; i++){
-                $('#main-area').append(generateMovieRow(data[i]));
-                generateMain(data[i].movieId);
-            };
-            return data;           
+        success: function( movies, textStatus, jQxhr ){
+            displayMovies(movies);
         },
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
         }
     });
+}
+
+function displayMovies(movies){
+    for(let i=0;i < movies.length; i++){
+        $('#main-area').append(generateMovieRow(movies[i]));
+        generateMain(movies[i].movieId);  
+    };
+}
+
+function updateMovies(e){
+    var title = e.target.value;
+    //Iterate through each movie
+    if(title != ""){
+        $('#main-area .movie').map(
+            function(){
+                for(let i = 0; i< title.length; i++){
+                    if(this.dataset.title[i] == title[i]){
+                        this.style.display = "block";
+                        continue;
+                    }else{
+                        this.style.display = "none";
+                        break;
+                    }
+                }
+            }
+        );
+    }else{
+        $('#main-area .movie').map(
+            function(){
+                this.style.display = "block";
+            }
+        );
+    }
+}
+
+
+
+
+function homePage() {
+    hideAddMovie();
+    getMovies();
+    displayMovies(movies);
 }
 
 function processPostMovie( e ){
@@ -79,8 +119,9 @@ function processPutMovie( e ){
 function addAMovie() {
     $("#new-movie-form").show();
 }
-function hideAddmovie() {
+function hideAddMovie() {
     $("#new-movie-form").hide();
+    $("#new-movie-form")[0].reset();
 }
 
 function deleteMovie(id){
@@ -104,7 +145,7 @@ function deleteMovie(id){
 function generateMovieRow(movie) {
     let rowValues = [];
     // Outer most div holds all of the information needed to populate internal divs
-    rowValues.push(`<div class='row mt-1 mb-1' id='movieOuter${movie.movieId}'`);
+    rowValues.push(`<div class='movie row mt-1 mb-1' id='movieOuter${movie.movieId}'`);
     rowValues.push(` data-title="${movie.title}" data-genre="${movie.genre}" data-director="${movie.director}">`);
     rowValues.push("<div class='col-9'>");
     // Changes to inner values here
