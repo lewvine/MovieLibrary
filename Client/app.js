@@ -215,7 +215,7 @@ function deleteMovie(id){
         type: 'Delete',
         contentType: 'application/json',
         success: function( data, textStatus, jQxhr ){
-            alert(data.title + "has been removed from the database!");
+            alert(data.title + " has been removed from the database!");
             homePage();
         },
         error: function( jqXhr, textStatus, errorThrown ){
@@ -258,7 +258,7 @@ function generateMain(id) {
     
     let outer = $('#movieOuter' + id);
     let title = outer.attr("data-title");
-    rowValues.push(`<div class="col-10 text-center h3">${title}</div>`);
+    rowValues.push(`<div class="col-10 text-center h2">${title}</div>`);
     rowValues.push(`<div class="btn btn-primary col-2" onclick="movieDetails(${id})">Details</div>`);
     $('#movieInner' + id).html(rowValues.join(""));
 }
