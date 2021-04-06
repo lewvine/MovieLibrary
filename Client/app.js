@@ -2,6 +2,7 @@
 
 (function($){
     $('#new-movie-form').submit( processPostMovie );
+    $("#image-upload").submit( uploadImage );
     hideAddMovie();
     hideSearchMovie();
     getMovies();
@@ -12,6 +13,30 @@
 
 })(jQuery);
 
+function uploadImage(e) 
+{
+    e.preventDefault();
+    let formData = new FormData();
+    let file_data = $("#myFile").prop("files")[0];
+    formData.append("file", file_data);
+    $.ajax({
+        url: 'https://localhost:44325/api/movie/upload/1',
+        type: 'Put',
+        data: formData,
+        cache : false,
+        processData: false,
+        contentType: false,
+        success: function( data, textStatus, jQxhr ){
+            alert("File uploaded");
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            alert("Error");
+            console.log( errorThrown );
+        }
+    });
+
+
+}
 function getMovies() {
     $("#main-area").empty();
     $.ajax({

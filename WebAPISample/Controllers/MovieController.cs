@@ -127,5 +127,19 @@ namespace WebAPISample.Controllers
                 return StatusCode(500);
             }
         }
+
+        // PUT api/movie
+        [HttpPut("upload/{id}")]
+        public IActionResult UpdateImage(int id, [FromForm] IFormFile file)
+        {
+            try
+            {
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }
