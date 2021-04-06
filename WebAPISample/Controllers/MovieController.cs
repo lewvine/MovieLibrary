@@ -138,7 +138,8 @@ namespace WebAPISample.Controllers
                 var filePath = $"{userImages}{id}Image.png";
                 using (var stream = System.IO.File.Create(filePath))
                 {
-                    file.CopyToAsync(stream);
+                    file.CopyTo(stream);
+                    stream.Close();
                 }
                 return StatusCode(200);
             }

@@ -32,12 +32,13 @@ function fileExists(){
 
 function uploadImage(e) 
 {
+    let id = this['id'].value;
     e.preventDefault();
     let formData = new FormData();
-    let file_data = $("#myFile").prop("files")[0];
+    let file_data = $("#myFile" + id).prop("files")[0];
     formData.append("file", file_data);
     $.ajax({
-        url: 'https://localhost:44325/api/movie/upload/1',
+        url: 'https://localhost:44325/api/movie/upload/' + id,
         type: 'Put',
         data: formData,
         cache : false,
@@ -304,9 +305,18 @@ function editDetails(id) {
     rowValues.push(`<div class='btn btn-danger' onclick="movieDetails(${id})">Cancel</div>`);
     rowValues.push("<button type='submit' class='btn btn-primary'>Confirm</button>");
     rowValues.push('</form>');
+    rowValues.push("<div class='row col-12'>");
+    //Changes to add new form for image
+    rowValues.push(`<form class='col-12' id="image-upload${id}">`);
+    rowValues.push(`<input type="hidden" name="id" value=${id} />`);
+    rowValues.push(`<input type="file" id="myFile${id}"  name="file" />`);
+    rowValues.push("<button type='submit' class='btn btn-info'>Submit</button>");
+    rowValues.push('</form>');
+
     rowValues.push("</div>");
     $(`#movieInner${id}`).html(rowValues.join(""));
     $('#form' + id).submit( processPutMovie );
+    $("#image-upload" + id).submit( uploadImage );
 }
 
 function updateImage(id) {
