@@ -9,7 +9,6 @@
     mainMenuButtons();
     let input = document.getElementById("movieTitle");
     input.addEventListener('input', updateMovies);
-    //fileExists();
 
 })(jQuery);
 
@@ -255,7 +254,7 @@ function generateMain(id) {
     
     let outer = $('#movieOuter' + id);
     let title = outer.attr("data-title");
-    rowValues.push(`<div class="col-10 text-center">${title}</div>`);
+    rowValues.push(`<div class="col-10 text-center h3">${title}</div>`);
     rowValues.push(`<div class="btn btn-primary col-2" onclick="movieDetails(${id})">Details</div>`);
     $('#movieInner' + id).html(rowValues.join(""));
 }
@@ -267,9 +266,9 @@ function movieDetails(id) {
     $(`#movieInner${id}`).empty();
     rowValues.push("<div class='row col-12'><div class='col-5'>Title:</div><div class='col-4'>Director:</div><div class='col-3'>Genre:</div></div>")
     rowValues.push("<div class='row col-12'>");
-    rowValues.push(`<div class='col-5'>${outer.attr("data-title")}</div>`);
-    rowValues.push(`<div class='col-4'>${outer.attr("data-director")}</div>`);
-    rowValues.push(`<div class='col-3'>${outer.attr("data-genre")}</div>`);
+    rowValues.push(`<div class='col-5 h5'>${outer.attr("data-title")}</div>`);
+    rowValues.push(`<div class='col-4 h5'>${outer.attr("data-director")}</div>`);
+    rowValues.push(`<div class='col-3 h5'>${outer.attr("data-genre")}</div>`);
     rowValues.push("</div>");
     rowValues.push("<div class='row col-12'><br></div>")
     rowValues.push("<div class='row col-12'><br></div>")
