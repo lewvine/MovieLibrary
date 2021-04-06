@@ -243,7 +243,7 @@ function generateMovieRow(movie) {
     rowValues.push("<div class='col-9'>");
     // Changes to inner values here
     rowValues.push("<div class='row align-items-center'>");
-    rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responseive col-3">');
+    rowValues.push('<img src="images/user/' + movie.movieId +'Image.png" alt="Gray placeholder image" class="img-responseive col-3">');
     rowValues.push(`<div class='row col-9' id='movieInner${movie.movieId}'>`);
     rowValues.push("Place Holder");
     // Populate inner values later
