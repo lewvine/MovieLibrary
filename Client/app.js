@@ -35,8 +35,8 @@ function uploadImage(e)
         processData: false,
         contentType: false,
         success: function( data, textStatus, jQxhr ){
-            alert("User Image Upload Successful");
-            homePage();
+            alert("User Image Upload Successful. Reloading Page.");
+            location.reload();
         },
         error: function( jqXhr, textStatus, errorThrown ){
             alert("Error: Unable to upload user Image");
@@ -124,7 +124,7 @@ function updateMovies(e){
     }
 };
 
-function homePage() {
+function homePage(id) {
     $("#main-area").empty();
     hideAddMovie();
     getMovies();
@@ -229,15 +229,19 @@ function deleteMovie(id){
 function generateMovieRow(movie) {
     let rowValues = [];
     // Outer most div holds all of the information needed to populate internal divs
-    rowValues.push(`<div class='movie row mt-1 mb-1' id='movieOuter${movie.movieId}'`);
+    rowValues.push(`<div class='movie row mb-4' id='movieOuter${movie.movieId}'`);
     rowValues.push(` data-title="${movie.title}" data-genre="${movie.genre}" data-director="${movie.director}">`);
-    rowValues.push("<div class='col-9'>");
+    rowValues.push("<div class='col-10'>");
     // Changes to inner values here
     rowValues.push("<div class='row align-items-center'>");
     if(movie.hasImage){
-        rowValues.push('<img src="images/user/' + movie.movieId +'Image.png" alt="User Uploaded Image" class="img-responseive col-3">');
+        rowValues.push('<div class="col-3">');
+        rowValues.push('<img src="images/user/' + movie.movieId +'Image.png" alt="User Uploaded Image" class="img-responsive movie-poster">');
+        rowValues.push('</div>');
     }else{
-        rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responseive col-3">');
+        rowValues.push('<div class="col-3">');
+        rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responsive movie-poster">');
+        rowValues.push('</div>');
     }
     rowValues.push(`<div class='row col-9' id='movieInner${movie.movieId}'>`);
     rowValues.push("Place Holder");

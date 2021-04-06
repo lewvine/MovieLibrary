@@ -9,15 +9,15 @@
 <body>
 
     <div class="container">
-        <div class="row align-items-left">
+        <div class="row col-10">
             <img class="banner-image col-10 img-responsive" src="images/MainBanner.png" alt="Movie reel">
         </div>
-        <div class="row align-items-center main-nav">
-            <div id="home-btn" class="btn btn-primary col-3" onClick="homePage()">Home</div>
-            <div id="add-btn" class="btn btn-primary col-3" onClick="addAMovie()">Add a Movie</div>
-            <div id="search-btn" class="btn btn-primary col-3" onClick="showSearch()">Search</div>
+        <div class="row align-items-center main-nav col-10">
+            <div id="home-btn" class="btn btn-primary col-4" onClick="homePage()">Home</div>
+            <div id="add-btn" class="btn btn-primary col-4" onClick="addAMovie()">Add a Movie</div>
+            <div id="search-btn" class="btn btn-primary col-4" onClick="showSearch()">Search</div>
         </div>
-        <form id="new-movie-form">
+        <form id="new-movie-form" class="bottom-margin">
             <label>Add a Movie</label>
             <input type="text" name="title" placeholder="Title" required />
             <input type="text" name="director" placeholder="Director" required />
@@ -25,14 +25,16 @@
             <button type="submit" class="btn btn-info">Submit</button>
             <div class="btn btn-danger" onClick="hideAddMovie()">Cancel</div>
         </form>
-        <form id="search-movie-form">
-            <label>Search a Movie</label>
-            <input class ="inputField" id="movieTitle" placeholder="Search for a movie">
-            <select id="searchField" onChange="resetSearch()">
-                <option value="title">Title</option>
-                <option value="genre">Genre</option>
-                <option value="director">Director</option>
-            </select>
+        <form id="search-movie-form" class="bottom-margin col-10">
+            <div class="row justify-content-center">
+                <label class="h6 col-3">Search for a Movie:</label>
+                <input class ="inputField col-3" id="movieTitle" placeholder="Movie Field">
+                <select id="searchField" class="col-3" onChange="resetSearch()">
+                    <option value="title">Title</option>
+                    <option value="genre">Genre</option>
+                    <option value="director">Director</option>
+                </select>
+            </div>
         </form>
         <div id="main-area">
             Page Loading
