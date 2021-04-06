@@ -14,10 +14,13 @@ namespace WebAPISample.Controllers
     public class MovieController : ControllerBase
     {
         private ApplicationContext _context;
+        // public URL where Backend has Read/Write permission, but everything else only has Read permission
         private readonly string userImages = "..\\Client\\images\\user\\";
+        private readonly string userImagesDirectoryPath = "..\\Client\\images\\user";
         public MovieController(ApplicationContext context)
         {
             _context = context;
+            System.IO.Directory.CreateDirectory(userImagesDirectoryPath);
         }
         // GET api/movie
         [HttpGet]
