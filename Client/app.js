@@ -13,29 +13,20 @@
 
 })(jQuery);
 
-function fileExists(){
-    $.ajax({
-        url:"/images/user/1Image.png",
-        type:'HEAD',
-        error: function()
-        {
-            alert("Not there");
-            //file not exists
-        },
-        success: function()
-        {
-            //file exists
-            alert("Exists");
-        }
-    });
-}
-
 function uploadImage(e) 
 {
     let id = this['id'].value;
     e.preventDefault();
     let formData = new FormData();
     let file_data = $("#myFile" + id).prop("files")[0];
+    if (typeof file_data === 'undefined') {
+        alert("No file selected. Please Try again");
+        return;
+    }
+    if (file_data.type !== "image/png") {
+        alert("Please only upload images in .png format");
+        return;
+    }
     formData.append("file", file_data);
     $.ajax({
         url: 'https://localhost:44325/api/movie/upload/' + id,
@@ -45,10 +36,11 @@ function uploadImage(e)
         processData: false,
         contentType: false,
         success: function( data, textStatus, jQxhr ){
-            alert("File uploaded");
+            alert("User Image Upload Successful");
+            homePage();
         },
         error: function( jqXhr, textStatus, errorThrown ){
-            alert("Error");
+            alert("Error: Unable to upload user Image");
             console.log( errorThrown );
         }
     });
@@ -224,7 +216,7 @@ function deleteMovie(id){
         type: 'Delete',
         contentType: 'application/json',
         success: function( data, textStatus, jQxhr ){
-            console.log("This movie was successfully delete");
+            alert(data.title + "has been removed from the database!");
             homePage();
         },
         error: function( jqXhr, textStatus, errorThrown ){
@@ -243,8 +235,8 @@ function generateMovieRow(movie) {
     rowValues.push("<div class='col-9'>");
     // Changes to inner values here
     rowValues.push("<div class='row align-items-center'>");
-    if(movie.hasImage == true){
-        rowValues.push('<img src="images/user/' + movie.movieId +'Image.png" alt="Gray placeholder image" class="img-responseive col-3">');
+    if(movie.hasImage){
+        rowValues.push('<img src="images/user/' + movie.movieId +'Image.png" alt="User Uploaded Image" class="img-responseive col-3">');
     }else{
         rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responseive col-3">');
     }
@@ -282,10 +274,9 @@ function movieDetails(id) {
     rowValues.push("<div class='row col-12'><br></div>")
     rowValues.push("<div class='row col-12'><br></div>")
     rowValues.push("<div class='row col-12'>");
-    rowValues.push(`<div class='btn btn-primary col-3' onclick="generateMain(${id})">Back</div>`);
-    rowValues.push(`<div class='btn btn-warning col-3' onclick="editDetails(${id})">Edit</div>`);
-    rowValues.push(`<div class='btn btn-info col-3' onclick="updateImage(${id})">Update Image</div>`);
-    rowValues.push(`<div class='btn btn-danger col-3' onclick="deleteMovie(${id})">Delete Entry</div>`)
+    rowValues.push(`<div class='btn btn-primary col-4' onclick="generateMain(${id})">Back</div>`);
+    rowValues.push(`<div class='btn btn-warning col-4' onclick="editDetails(${id})">Edit</div>`);
+    rowValues.push(`<div class='btn btn-danger col-4' onclick="deleteMovie(${id})">Delete Entry</div>`)
     rowValues.push("</div>");
     $(`#movieInner${id}`).html(rowValues.join(""));
 }
@@ -306,15 +297,16 @@ function editDetails(id) {
     rowValues.push("<label class='col-3'>Genre:</label>");
     rowValues.push(`<input class ='col-6' type="text" name="genre" value="${outer.attr("data-genre")}" />`);
     rowValues.push("<br>");
-    rowValues.push(`<div class='btn btn-danger' onclick="movieDetails(${id})">Cancel</div>`);
     rowValues.push("<button type='submit' class='btn btn-primary'>Confirm</button>");
+    rowValues.push(`<div class='btn btn-danger' onclick="movieDetails(${id})">Cancel</div>`);
     rowValues.push('</form>');
     rowValues.push("<div class='row col-12'>");
     //Changes to add new form for image
+    rowValues.push("<div class='col-12'>Upload/Update Image(png)</div>");
     rowValues.push(`<form class='col-12' id="image-upload${id}">`);
     rowValues.push(`<input type="hidden" name="id" value=${id} />`);
     rowValues.push(`<input type="file" id="myFile${id}" accept="image/x-png" name="file" />`);
-    rowValues.push("<button type='submit' class='btn btn-info'>Submit</button>");
+    rowValues.push("<button type='submit' class='btn btn-info'>Upload Image</button>");
     rowValues.push('</form>');
 
     rowValues.push("</div>");

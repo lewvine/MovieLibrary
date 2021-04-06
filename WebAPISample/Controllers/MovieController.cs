@@ -121,6 +121,11 @@ namespace WebAPISample.Controllers
                 }
                 _context.Remove(m);
                 _context.SaveChanges();
+                // Delete user Uploaded images
+                if (System.IO.File.Exists(userImages + id + "Image.png"))
+                {
+                    System.IO.File.Delete(userImages + id + "Image.png");
+                }
                 return Ok(m);
             }
             catch
@@ -136,6 +141,10 @@ namespace WebAPISample.Controllers
             try
             {
                 var movie = _context.Movies.Where(movie => movie.MovieId == id).FirstOrDefault();
+                if (movie == null)
+                {
+                    return NotFound();
+                }
                 var filePath = $"{userImages}{id}Image.png";
                 using (var stream = System.IO.File.Create(filePath))
                 {

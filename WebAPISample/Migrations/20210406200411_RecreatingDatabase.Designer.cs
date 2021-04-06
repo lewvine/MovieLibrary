@@ -9,8 +9,8 @@ using WebAPISample.Data;
 namespace WebAPISample.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210406192331_added-hasImage-column")]
-    partial class addedhasImagecolumn
+    [Migration("20210406200411_RecreatingDatabase")]
+    partial class RecreatingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

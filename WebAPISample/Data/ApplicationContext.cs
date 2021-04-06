@@ -18,9 +18,9 @@ namespace WebAPISample.Data
 
             modelBuilder.Entity<Movie>()
              .HasData(
-                new Movie { MovieId = 1, Title = "The Departed", Genre = "Drama", Director = "Martin Scorsese" },
-                new Movie { MovieId = 2, Title = "The Dark Knight", Genre = "Drama", Director = "Christopher Nolan" },
-                new Movie { MovieId = 3, Title = "Inception", Genre = "Drama", Director = "Christopher Nolan" }
+                new Movie { MovieId = 1, Title = "The Departed", Genre = "Drama", Director = "Martin Scorsese", HasImage = false },
+                new Movie { MovieId = 2, Title = "The Dark Knight", Genre = "Drama", Director = "Christopher Nolan", HasImage = false },
+                new Movie { MovieId = 3, Title = "Inception", Genre = "Drama", Director = "Christopher Nolan", HasImage = false }
                 );
         }
 
