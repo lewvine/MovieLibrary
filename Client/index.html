@@ -25,12 +25,11 @@
         <form id="search-movie-form">
             <label>Search a Movie</label>
             <input class ="inputField" id="movieTitle" placeholder="Search for a movie">
-            <select id="searchField">
+            <select id="searchField" onChange="resetSearch()">
                 <option value="title">Title</option>
                 <option value="genre">Genre</option>
                 <option value="director">Director</option>
             </select>
-            <div class="btn btn-info" onClick="hideSearchMovie()">Back</div>
             <!-- <input type="text" name="title" placeholder="Title"  />
             <input type="text" name="director" placeholder="Director"  />
             <input type="text" name="genre" placeholder="Genre" /> -->

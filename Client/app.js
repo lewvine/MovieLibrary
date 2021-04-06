@@ -47,7 +47,7 @@ function getMoviesForSearch() {
 function displayMoviesForSearch(movies) {
     for(let i=0;i < movies.length; i++){
         $('#main-area').append(generateMovieRow(movies[i]));
-        movieSearchDetails(movies[i].movieId);  
+        movieDetails(movies[i].movieId);  
     };
 }
 
@@ -64,7 +64,8 @@ function resetSearch() {
             this.style.display = "block";
         }
     );
-    mainMenuButtons();
+    
+    $("#movieTitle").val("");
 }
 function updateMovies(e){
     let searchProperty = $("#searchField")[0].value;
@@ -90,6 +91,7 @@ function updateMovies(e){
 };
 
 function homePage() {
+    $("#main-area").empty();
     hideAddMovie();
     getMovies();
     hideSearchMovie();
@@ -167,9 +169,9 @@ function hideAddMovie() {
 
 function hideSearchMovie() {
     $("#search-movie-form").hide();
-    $("#search-movie-form")[0].reset();
     mainMenuButtons();
     resetSearch();
+    mainMenuButtons();
 }
 
 function deleteMovie(id){
@@ -239,28 +241,6 @@ function movieDetails(id) {
     rowValues.push(`<div class='btn btn-danger col-3' onclick="deleteMovie(${id})">Delete Entry</div>`)
     rowValues.push("</div>");
     $(`#movieInner${id}`).html(rowValues.join(""));
-
-}
-
-function movieSearchDetails(id) {
-    let outer = $(`#movieOuter${id}`);
-    let rowValues = [];
-    $(`#movieInner${id}`).empty();
-    rowValues.push("<div class='row col-12'><div class='col-5'>Title:</div><div class='col-4'>Director:</div><div class='col-3'>Genre:</div></div>")
-    rowValues.push("<div class='row col-12'>");
-    rowValues.push(`<div class='col-5'>${outer.attr("data-title")}</div>`);
-    rowValues.push(`<div class='col-4'>${outer.attr("data-director")}</div>`);
-    rowValues.push(`<div class='col-3'>${outer.attr("data-genre")}</div>`);
-    rowValues.push("</div>");
-    rowValues.push("<div class='row col-12'><br></div>")
-    rowValues.push("<div class='row col-12'><br></div>")
-    rowValues.push("<div class='row col-12 justify-content-md-center'>");
-    rowValues.push(`<div class='btn btn-warning col-4' onclick="editDetails(${id})">Edit</div>`);
-    rowValues.push(`<div class='btn btn-info col-4' onclick="updateImage(${id})">Update Image</div>`);
-    rowValues.push(`<div class='btn btn-danger col-4' onclick="deleteMovie(${id})">Delete Entry</div>`)
-    rowValues.push("</div>");
-    $(`#movieInner${id}`).html(rowValues.join(""));
-
 }
 
 function editDetails(id) {
