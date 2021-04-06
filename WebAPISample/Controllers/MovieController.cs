@@ -135,12 +135,15 @@ namespace WebAPISample.Controllers
         {
             try
             {
+                var movie = _context.Movies.Where(movie => movie.MovieId == id).FirstOrDefault();
                 var filePath = $"{userImages}{id}Image.png";
                 using (var stream = System.IO.File.Create(filePath))
                 {
                     file.CopyTo(stream);
                     stream.Close();
                 }
+                movie.HasImage = true;
+                _context.SaveChanges();
                 return StatusCode(200);
             }
             catch

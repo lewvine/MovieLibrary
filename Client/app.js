@@ -243,7 +243,11 @@ function generateMovieRow(movie) {
     rowValues.push("<div class='col-9'>");
     // Changes to inner values here
     rowValues.push("<div class='row align-items-center'>");
-    rowValues.push('<img src="images/user/' + movie.movieId +'Image.png" alt="Gray placeholder image" class="img-responseive col-3">');
+    if(movie.hasImage == true){
+        rowValues.push('<img src="images/user/' + movie.movieId +'Image.png" alt="Gray placeholder image" class="img-responseive col-3">');
+    }else{
+        rowValues.push('<img src="images/grayDefault.png" alt="Gray placeholder image" class="img-responseive col-3">');
+    }
     rowValues.push(`<div class='row col-9' id='movieInner${movie.movieId}'>`);
     rowValues.push("Place Holder");
     // Populate inner values later
@@ -309,7 +313,7 @@ function editDetails(id) {
     //Changes to add new form for image
     rowValues.push(`<form class='col-12' id="image-upload${id}">`);
     rowValues.push(`<input type="hidden" name="id" value=${id} />`);
-    rowValues.push(`<input type="file" id="myFile${id}"  name="file" />`);
+    rowValues.push(`<input type="file" id="myFile${id}" accept="image/x-png" name="file" />`);
     rowValues.push("<button type='submit' class='btn btn-info'>Submit</button>");
     rowValues.push('</form>');
 
