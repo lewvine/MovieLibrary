@@ -9,9 +9,26 @@
     mainMenuButtons();
     let input = document.getElementById("movieTitle");
     input.addEventListener('input', updateMovies);
-
+    //fileExists();
 
 })(jQuery);
+
+function fileExists(){
+    $.ajax({
+        url:"/images/user/1Image.png",
+        type:'HEAD',
+        error: function()
+        {
+            alert("Not there");
+            //file not exists
+        },
+        success: function()
+        {
+            //file exists
+            alert("Exists");
+        }
+    });
+}
 
 function uploadImage(e) 
 {

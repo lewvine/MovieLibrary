@@ -14,6 +14,7 @@ namespace WebAPISample.Controllers
     public class MovieController : ControllerBase
     {
         private ApplicationContext _context;
+        private readonly string userImages = "..\\Client\\images\\user\\";
         public MovieController(ApplicationContext context)
         {
             _context = context;
@@ -134,6 +135,11 @@ namespace WebAPISample.Controllers
         {
             try
             {
+                var filePath = $"{userImages}{id}Image.png";
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    file.CopyToAsync(stream);
+                }
                 return StatusCode(200);
             }
             catch
